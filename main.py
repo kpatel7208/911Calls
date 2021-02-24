@@ -1,23 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 sns.set_style('whitegrid')
-get_ipython().run_line_magic('matplotlib', 'inline')
+
 df = pd.read_csv('911.csv')
-
-df.info()
-
-df.head(3)
-
-# top 5 zipcodes for 911 calls
-
-df['zip'].value_counts().head(5)
-
-# top 5 townships (twp) for 911 calls
-
-df['twp'].value_counts().head(5)
-
-df['title'].nunique()
 
 df['Reason'] = df['title'].apply(lambda title: title.split(':')[0])
 
@@ -86,6 +73,7 @@ dayMonth = df.groupby(by=['Day of Week','Month']).count()['Reason'].unstack()
 dayMonth.head()
 
 plt.figure(figsize=(12,6))
+plt.show()
 sns.heatmap(dayMonth,cmap='viridis')
 
 sns.clustermap(dayMonth,cmap='viridis')
